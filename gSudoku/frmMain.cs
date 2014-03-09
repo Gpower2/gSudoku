@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using gSudokuEngine;
+using System.Reflection;
 
 namespace gSudoku
 {
@@ -31,6 +31,7 @@ namespace gSudoku
                 InitializeComponent();
                 InitDifficulty();
                 this.Icon = gSudoku.Properties.Resources.gSudokuIcon;
+                Text = "gSudoku v" + Assembly.GetExecutingAssembly().GetName().Version + " -- By Gpower2";
                 _grap = new gSudokuGraphics(_grapValues);
                 picSudokuBoard.Image = _grap.DrawBoard(_game, picSudokuBoard.Size, _selectedCell);
                 UpdateStatistics();
