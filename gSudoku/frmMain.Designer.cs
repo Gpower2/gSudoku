@@ -534,7 +534,7 @@
             this.KeyPreview = true;
             this.Name = "frmMain";
             this.Text = "gSudoku";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnFrmMainKeyDown);
             this.Resize += new System.EventHandler(this.OnFrmMainResize);
             ((System.ComponentModel.ISupportInitialize)(this.picSudokuBoard)).EndInit();
             this.contextMenuPicture.ResumeLayout(false);

@@ -626,7 +626,7 @@ namespace gSudoku
             }
         }
 
-        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        private void OnFrmMainKeyDown(object sender, KeyEventArgs e)
         {
             try
             {
