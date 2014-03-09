@@ -531,8 +531,10 @@
             this.ClientSize = new System.Drawing.Size(642, 510);
             this.Controls.Add(this.tlpForm);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.KeyPreview = true;
             this.Name = "frmMain";
             this.Text = "gSudoku";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
             this.Resize += new System.EventHandler(this.OnFrmMainResize);
             ((System.ComponentModel.ISupportInitialize)(this.picSudokuBoard)).EndInit();
             this.contextMenuPicture.ResumeLayout(false);

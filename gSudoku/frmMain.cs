@@ -626,5 +626,202 @@ namespace gSudoku
             }
         }
 
+        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (_game.GameStatus == gSudokuGameStatus.Playing)
+                {
+                    if (_selectedCell != null)
+                    {
+                        // check if valid key was pressed
+                        if(e.KeyCode == Keys.W ||
+                            e.KeyCode == Keys.A ||
+                            e.KeyCode == Keys.S ||
+                            e.KeyCode == Keys.D ||
+                            e.KeyCode == Keys.Up ||
+                            e.KeyCode == Keys.Down ||
+                            e.KeyCode == Keys.Left ||
+                            e.KeyCode == Keys.Right ||
+                            e.KeyCode == Keys.D1 ||
+                            e.KeyCode == Keys.D2 ||
+                            e.KeyCode == Keys.D3 ||
+                            e.KeyCode == Keys.D4 ||
+                            e.KeyCode == Keys.D5 ||
+                            e.KeyCode == Keys.D6 ||
+                            e.KeyCode == Keys.D7 ||
+                            e.KeyCode == Keys.D8 ||
+                            e.KeyCode == Keys.D9 ||
+                            e.KeyCode == Keys.NumPad1 ||
+                            e.KeyCode == Keys.NumPad2 ||
+                            e.KeyCode == Keys.NumPad3 ||
+                            e.KeyCode == Keys.NumPad4 ||
+                            e.KeyCode == Keys.NumPad5 ||
+                            e.KeyCode == Keys.NumPad6 ||
+                            e.KeyCode == Keys.NumPad7 ||
+                            e.KeyCode == Keys.NumPad8 ||
+                            e.KeyCode == Keys.NumPad9)
+                        {
+                            // if key was a direction key
+                            if (e.KeyCode == Keys.W ||
+                                e.KeyCode == Keys.A ||
+                                e.KeyCode == Keys.S ||
+                                e.KeyCode == Keys.D ||
+                                e.KeyCode == Keys.Up ||
+                                e.KeyCode == Keys.Down ||
+                                e.KeyCode == Keys.Left ||
+                                e.KeyCode == Keys.Right)
+                            {
+                                Int32 myX = -1;
+                                Int32 myY = -1;
+                                // check for up
+                                if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
+                                {
+                                    if (_selectedX == 0)
+                                    {
+                                        myX = 8;
+                                    }
+                                    else
+                                    {
+                                        myX = _selectedX - 1;
+                                    }
+                                    myY = _selectedY;
+                                }
+                                // check for down
+                                else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
+                                {
+                                    if (_selectedX == 8)
+                                    {
+                                        myX = 0;
+                                    }
+                                    else
+                                    {
+                                        myX = _selectedX + 1;
+                                    }
+                                    myY = _selectedY;
+                                }
+                                // check for left
+                                else if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
+                                {
+                                    if (_selectedY == 0)
+                                    {
+                                        myY = 8;
+                                    }
+                                    else
+                                    {
+                                        myY = _selectedY - 1;
+                                    }
+                                    myX = _selectedX;
+                                }
+                                // check for right
+                                else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
+                                {
+                                    if (_selectedY == 8)
+                                    {
+                                        myY = 0;
+                                    }
+                                    else
+                                    {
+                                        myY = _selectedY + 1;
+                                    }
+                                    myX = _selectedX;
+                                }
+                                _selectedCell = _game.Board[myX][myY];
+                                _selectedX = myX;
+                                _selectedY = myY;
+                                picSudokuBoard.Image = _grap.DrawBoard(_game, picSudokuBoard.Size, _selectedCell);
+                                UpdateStatistics();
+                            }
+                            // if key was a number key
+                            else if (e.KeyCode == Keys.D1 ||
+                            e.KeyCode == Keys.D2 ||
+                            e.KeyCode == Keys.D3 ||
+                            e.KeyCode == Keys.D4 ||
+                            e.KeyCode == Keys.D5 ||
+                            e.KeyCode == Keys.D6 ||
+                            e.KeyCode == Keys.D7 ||
+                            e.KeyCode == Keys.D8 ||
+                            e.KeyCode == Keys.D9 ||
+                            e.KeyCode == Keys.NumPad1 ||
+                            e.KeyCode == Keys.NumPad2 ||
+                            e.KeyCode == Keys.NumPad3 ||
+                            e.KeyCode == Keys.NumPad4 ||
+                            e.KeyCode == Keys.NumPad5 ||
+                            e.KeyCode == Keys.NumPad6 ||
+                            e.KeyCode == Keys.NumPad7 ||
+                            e.KeyCode == Keys.NumPad8 ||
+                            e.KeyCode == Keys.NumPad9)
+                            {
+                                if (!_selectedCell.IsProtected)
+                                {
+                                    // determine value
+                                    Int32 btnValue = 0;
+                                    if (e.KeyCode == Keys.D1 || e.KeyCode == Keys.NumPad1)
+                                    {
+                                        btnValue = 1;
+                                    }
+                                    else if (e.KeyCode == Keys.D2 || e.KeyCode == Keys.NumPad2)
+                                    {
+                                        btnValue = 2;
+                                    }
+                                    else if (e.KeyCode == Keys.D3 || e.KeyCode == Keys.NumPad3)
+                                    {
+                                        btnValue = 3;
+                                    }
+                                    else if (e.KeyCode == Keys.D4 || e.KeyCode == Keys.NumPad4)
+                                    {
+                                        btnValue = 4;
+                                    }
+                                    else if (e.KeyCode == Keys.D5 || e.KeyCode == Keys.NumPad5)
+                                    {
+                                        btnValue = 5;
+                                    }
+                                    else if (e.KeyCode == Keys.D6 || e.KeyCode == Keys.NumPad6)
+                                    {
+                                        btnValue = 6;
+                                    }
+                                    else if (e.KeyCode == Keys.D7 || e.KeyCode == Keys.NumPad7)
+                                    {
+                                        btnValue = 7;
+                                    }
+                                    else if (e.KeyCode == Keys.D8 || e.KeyCode == Keys.NumPad8)
+                                    {
+                                        btnValue = 8;
+                                    }
+                                    else if (e.KeyCode == Keys.D9 || e.KeyCode == Keys.NumPad9)
+                                    {
+                                        btnValue = 9;
+                                    }                                  
+                                    gSudokuEngine.gSudokuMoveType myType;
+                                    if (_selectedCell.ValueExists(btnValue))
+                                    {
+                                        myType = gSudokuEngine.gSudokuMoveType.Remove;
+                                    }
+                                    else
+                                    {
+                                        myType = gSudokuEngine.gSudokuMoveType.Add;
+                                    }
+                                    gSudokuEngine.gSudokuMove myMove = new gSudokuEngine.gSudokuMove(_selectedCell, myType, btnValue, _game.GetNewMoveId());
+                                    _game.PlayMove(myMove, true);
+                                    picSudokuBoard.Image = _grap.DrawBoard(_game, picSudokuBoard.Size, _selectedCell);
+                                    UpdateStatistics();
+                                    if (_game.GameStatus == gSudokuGameStatus.Finished)
+                                    {
+                                        _gameTimer.Stop();
+                                        MessageBox.Show("Game Finished!\r\n\r\n" + GetGameStats(), "Success!",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+                            }                            
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                MessageBox.Show("Error!\r\n" + ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
