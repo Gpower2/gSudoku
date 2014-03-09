@@ -30,7 +30,7 @@ namespace gSudoku
             {
                 InitializeComponent();
                 InitDifficulty();
-                this.Icon = gSudoku.Properties.Resources.gSudokuIcon;
+                Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
                 Text = "gSudoku v" + Assembly.GetExecutingAssembly().GetName().Version + " -- By Gpower2";
                 _grap = new gSudokuGraphics(_grapValues);
                 picSudokuBoard.Image = _grap.DrawBoard(_game, picSudokuBoard.Size, _selectedCell);
