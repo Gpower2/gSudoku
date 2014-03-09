@@ -1,0 +1,5 @@
+L:\Development\gSudoku\gSudokuEngine\bin\Debug\gSudokuEngine.dll
+L:\Development\gSudoku\gSudokuEngine\bin\Debug\gSudokuEngine.pdb
+L:\Development\gSudoku\gSudokuEngine\obj\Debug\ResolveAssemblyReference.cache
+L:\Development\gSudoku\gSudokuEngine\obj\Debug\gSudokuEngine.dll
+L:\Development\gSudoku\gSudokuEngine\obj\Debug\gSudokuEngine.pdb

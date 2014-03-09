@@ -1,0 +1,5 @@
+L:\Development\gSudoku\gSudokuEngine\bin\Release\gSudokuEngine.dll
+L:\Development\gSudoku\gSudokuEngine\bin\Release\gSudokuEngine.pdb
+L:\Development\gSudoku\gSudokuEngine\obj\Release\gSudokuEngine.dll
+L:\Development\gSudoku\gSudokuEngine\obj\Release\gSudokuEngine.pdb
+L:\Development\gSudoku\gSudokuEngine\obj\Release\gSudokuEngine.csprojResolveAssemblyReference.cache
