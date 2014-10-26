@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using gSudokuEngine;
 using System.Reflection;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace gSudoku
 {
@@ -127,12 +129,25 @@ namespace gSudoku
             txtStats.Text = info.ToString();
             for (Int32 i = 1; i <= 9; i++)
             {
-                Control[] myControls = this.Controls.Find("btnVal" + i.ToString(), true);
+                Control[] myControls = this.Controls.Find(String.Format("btnVal{0}", i), true);
                 if (myControls.Length == 1)
                 {
                     if (myControls[0] is Button)
                     {
-                        ((Button)myControls[0]).Text = String.Format("{0} [{1}]", i, _game.GetNumberOfSingleValueCells(i));
+                        Int32 cellCount = _game.GetNumberOfSingleValueCells(i);
+                        ((Button)myControls[0]).Text = String.Format("{0} [{1}]", i, cellCount);
+                        if (cellCount == 0)
+                        {
+                            ((Button)myControls[0]).BackColor = Color.LightGray;
+                        }
+                        else if (cellCount == 9)
+                        {
+                            ((Button)myControls[0]).BackColor = Color.PaleGreen;
+                        }
+                        else
+                        {
+                            ((Button)myControls[0]).BackColor = Color.LightSteelBlue;
+                        }
                     }
                 }
             }
@@ -162,6 +177,29 @@ namespace gSudoku
             gameStats.AppendFormat("Used auto notes : {0}\r\n", autoNotes > 0 ? "Yes" : "No");
             Int32 autoSolve = _game.PlayerMoves.Count(s => s.MoveType == gSudokuEngine.gSudokuMoveType.Solve);
             gameStats.AppendFormat("Used auto solve : {0}\r\n", autoSolve > 0 ? "Yes" : "No");
+            gSudokuSaveGame mySaveGame = new gSudokuSaveGame();
+            mySaveGame.Difficulty = _game.GameDifficulty;
+            mySaveGame.ElapsedTime = _gameTimer.Elapsed.Ticks;
+            mySaveGame.TotalClues = _game.GetNumberOfProtectedCells();
+            mySaveGame.UserActions = _game.PlayerActionsCounter;
+            XmlSerializer myXml = new XmlSerializer(typeof(List<gSudokuSaveGame>));
+            List<gSudokuSaveGame> gamesList = null;
+            if (!File.Exists("games.xml"))
+            {
+                gamesList = new List<gSudokuSaveGame>();
+            }
+            else
+            {
+                using (StreamReader sr = new StreamReader("games.xml"))
+                {
+                    gamesList = (List<gSudokuSaveGame>)myXml.Deserialize(sr);
+                }
+            }
+            gamesList.Add(mySaveGame);
+            using (StreamWriter sw = new StreamWriter("games.xml"))
+            {
+                myXml.Serialize(sw, gamesList);
+            }
             return gameStats.ToString();
         }
 

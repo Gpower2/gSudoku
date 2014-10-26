@@ -8,9 +8,9 @@ namespace gSudokuEngine
     public class gSudokuDifficulty
     {
         public Int32 Clues { get { return _rnd.Next(_minClues, _maxClues); } }
-        public Int32 UniqueSolutionAttempts { get { return _uniqueSolutionAttempts; } }
-        public Boolean UseSymmetry { get { return _useSymmetry; } }
-        public String Name { get { return _name; } }
+        public Int32 UniqueSolutionAttempts { get { return _uniqueSolutionAttempts; } set { _uniqueSolutionAttempts = value; } }
+        public Boolean UseSymmetry { get { return _useSymmetry; } set { _useSymmetry = value; } }
+        public String Name { get { return _name; } set { _name = value; } }
 
         private Int32 _minClues;
         private Int32 _maxClues;
@@ -18,6 +18,11 @@ namespace gSudokuEngine
         private Boolean _useSymmetry;
         private Random _rnd;
         private String _name;
+
+        /// <summary>
+        /// Parameterless constructor for serialization
+        /// </summary>
+        private gSudokuDifficulty() { }
 
         public gSudokuDifficulty(String name, Int32 minClues, Int32 maxClues, Int32 uniqueSolutionAttempts, Boolean useSymmetry)
         {
