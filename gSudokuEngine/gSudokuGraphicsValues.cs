@@ -16,6 +16,8 @@ namespace gSudokuEngine
         public Color BoardThickLineColor { get; set; }
         public Color BoardThinLineColor { get; set; }
 
+        public Color BoardHelperLineColor { get; set; }
+
         public Color BoardCellEmpty { get; set; }
         public Color BoardCellProtected { get; set; }
         public Color BoardCellProtectedInvalid { get; set; }
@@ -40,6 +42,8 @@ namespace gSudokuEngine
 
             BoardThickLineColor = Color.Black;
             BoardThinLineColor = Color.Black;
+
+            BoardHelperLineColor = Color.Blue;
 
             BoardCellEmpty = Color.White;
             BoardCellProtected = Color.WhiteSmoke;

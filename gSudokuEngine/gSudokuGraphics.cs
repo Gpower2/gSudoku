@@ -41,6 +41,10 @@ namespace gSudokuEngine
             Point p1 = new Point();
             Point p2 = new Point();
             Int32 selectedValue = -1;
+            // Keep selected cell coordinates
+            Int32 selectedCellX = -1;
+            Int32 selectedCellY = -1;
+
             //Draw each cell
             //Get all invalid values       
             List<Int32> invalidValues = new List<Int32>();
@@ -93,6 +97,13 @@ namespace gSudokuEngine
                     else if (j >= 6 && j <= 8)
                     {
                         p1.X = 3 * _GraphicsValues.BoardThickLineWidth + (j - 2) * _GraphicsValues.BoardThinLineWidth + j * cellWidth;
+                    }
+
+                    // Check if we have a selectedCell and get its coordinates
+                    if (selectedCell != null && game.Board[i][j] == selectedCell)
+                    {
+                        selectedCellX = p1.X;
+                        selectedCellY = p1.Y;
                     }
 
                     //Draw cell background color
@@ -159,7 +170,7 @@ namespace gSudokuEngine
                             }
                         }
                     }
-                    if(!cellDrawn)
+                    if (!cellDrawn)
                     {
                         if (game.Board[i][j].IsProtected)
                         {
@@ -265,9 +276,7 @@ namespace gSudokuEngine
                             g.DrawString(val.ToString(), f, new SolidBrush(fColor), p2);
 
                         }
-
                     }
-
                 }
             }
 
@@ -408,6 +417,36 @@ namespace gSudokuEngine
             for (Int32 w = 0; w < _GraphicsValues.BoardThinLineWidth; w++)
             {
                 g.DrawLine(new Pen(_GraphicsValues.BoardThinLineColor, 1), p1.X + w, p1.Y, p2.X + w, p2.Y);
+            }
+
+            // Draw helper lines for selected cell
+            if (selectedCellX > -1 && selectedCellY > -1)
+            {
+                // Vertical lines
+                g.DrawLine(new Pen(_GraphicsValues.BoardHelperLineColor, 1), 
+                    selectedCellX, 
+                    _GraphicsValues.BoardThickLineWidth, 
+                    selectedCellX,
+                    9 * cellHeight + 3 * _GraphicsValues.BoardThickLineWidth + 6 * _GraphicsValues.BoardThinLineWidth
+                );
+                g.DrawLine(new Pen(_GraphicsValues.BoardHelperLineColor, 1), 
+                    selectedCellX + cellWidth - 1, 
+                    _GraphicsValues.BoardThickLineWidth, 
+                    selectedCellX + cellWidth - 1,
+                    9 * cellHeight + 3 * _GraphicsValues.BoardThickLineWidth + 6 * _GraphicsValues.BoardThinLineWidth
+                );
+
+                // Horizontal lines
+                g.DrawLine(new Pen(_GraphicsValues.BoardHelperLineColor, 1), _GraphicsValues.BoardThickLineWidth, 
+                    selectedCellY, 
+                    9 * cellWidth + 3 * _GraphicsValues.BoardThickLineWidth + 6 * _GraphicsValues.BoardThinLineWidth,
+                    selectedCellY
+                );
+                g.DrawLine(new Pen(_GraphicsValues.BoardHelperLineColor, 1), _GraphicsValues.BoardThickLineWidth, 
+                    selectedCellY + cellHeight - 1,
+                    9 * cellWidth + 3 * _GraphicsValues.BoardThickLineWidth + 6 * _GraphicsValues.BoardThinLineWidth,
+                    selectedCellY + cellHeight - 1
+                );
             }
 
             return bmpBoard;
