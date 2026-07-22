@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace gSudokuEngine
 {
@@ -500,6 +499,5 @@ namespace gSudokuEngine
             FillSolution(pstate, board);
             Prune(ec, board, minFilledCells, maxTries, useSymmetry);
         }
-
     }
 }

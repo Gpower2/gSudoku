@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Diagnostics;
 
 namespace gSudokuEngine
 {
@@ -48,7 +48,7 @@ namespace gSudokuEngine
     public class gSudokuGame
     {
         private gSudokuCell[][] _Board = null;
-        private List<gSudokuMove> _PlayerMoves = new List<gSudokuMove>();
+        private readonly List<gSudokuMove> _PlayerMoves = new List<gSudokuMove>();
         private Int32 _CurrentMoveIndex = -1;
         private Int32 _PlayerActionsCounter = 0;
         private gSudokuGameStatus _GameStatus = gSudokuGameStatus.NotStarted;

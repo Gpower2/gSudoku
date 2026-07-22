@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace gSudokuEngine
 {
@@ -21,14 +19,14 @@ namespace gSudokuEngine
             public LinkedNode Right { get; set; }
 
             public LinkedNode Head { get; set; }
-            public String Id { get; set; }
+            public string Id { get; set; }
             public int ColumnCount;     // used only for head
-            public int r { get; set; } // for tracking the solution
+            public int R { get; set; } // for tracking the solution
 
             // safety check
             public bool Removed;
 
-            public override String ToString()
+            public override string ToString()
             {
                 return Id;
             }
@@ -38,15 +36,12 @@ namespace gSudokuEngine
         private LinkedNode[] _rightMost; // for each row
         private int _RowCount;                  // row count
         private int _ColCount;                  // col count
-        private Stack<int> _MatrixState;      // state of matrix - which rows have been eliminated
-        private System.Random _rnd;
-        private int _seed;
+        private Stack<int> _MatrixState;      // state of matrix - which rows have been eliminated        
+
+        private readonly System.Random _rnd = new System.Random();
 
         public ExactCover()
         {
-            _rnd = new System.Random();
-            _seed = _rnd.Next();
-            _rnd = new System.Random(_seed);
         }
 
         public ExactCover(bool[,] matrix)
@@ -104,7 +99,7 @@ namespace gSudokuEngine
                         c = new LinkedNode();
                         c.Id = String.Format("[{0},{1}]", i, j);
                         c.Head = head;
-                        c.r = i;
+                        c.R = i;
                         c.Above = northernNeighbor;
                         northernNeighbor.Below = c;
                         head.ColumnCount++;
@@ -264,8 +259,6 @@ namespace gSudokuEngine
             return null;
         }
 
-
-
         /// <summary>
         ///   Actually perform the search for the exact cover.
         /// </summary>
@@ -298,7 +291,7 @@ namespace gSudokuEngine
             foreach (LinkedNode n in rows.OrderRandomly())
             {
                 // try removing the chosen row.
-                _MatrixState.Push(n.r);
+                _MatrixState.Push(n.R);
                 for (LinkedNode r1 = n.Right; r1 != n; r1 = r1.Right)
                     RemoveColumn(r1.Head);
 
@@ -383,28 +376,6 @@ namespace gSudokuEngine
             set;
         }
 
-        /// <summary>
-        ///   gets or sets the seed for the random number generator.
-        /// </summary>
-        /// <remarks>
-        ///   <para>
-        ///     Algorithm-X employed by this class uses random selection
-        ///     to search for solutions. This seed governs the randomness.
-        ///   </para>
-        /// </remarks>
-        public int Seed
-        {
-            set
-            {
-                _seed = value;
-                _rnd = new System.Random(_seed);
-            }
-            get
-            {
-                return _seed;
-            }
-        }
-
         public Stack<int> MatrixState
         {
             get
@@ -416,16 +387,16 @@ namespace gSudokuEngine
 
     public static class Extensions
     {
+        private static readonly Random _random = new Random();
+
         public static IEnumerable<T> OrderRandomly<T>(this IList<T> list)
-        {
-            Random random = new Random();
+        {            
             while (list.Count > 0)
             {
-                int index = random.Next(list.Count);
+                int index = _random.Next(list.Count);
                 yield return list[index];
                 list.RemoveAt(index);
             }
         }
     }
-
 }
